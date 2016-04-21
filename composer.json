@@ -1,0 +1,44 @@
+{
+    "name":        "hostnet/database-test.lib",
+    "description": "Provide a real database, safe for testing purposes",
+    "type":        "lib",
+    "license":     "proprietary",
+    "authors": [
+        {
+            "name":  "Hidde Boomsma",
+            "email": "hboomsma@hostnet.nl"
+        }
+    ],
+    "require": {
+        "doctrine/orm":                          "^2.5.4",
+        "hostnet/entity-information-plugin-lib": "^3.1.1"
+    },
+    "require-dev": {
+        "hostnet/phpcs-tool": "^4.0.6",
+        "phpunit/phpunit":    "^5.3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hostnet\\Component\\DatabaseTest\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Hostnet\\Component\\DatabaseTest\\": "test/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url":  "https://packagist.hostnetbv.nl"
+        }
+    ],
+    "archive": {
+        "exclude": [
+            "/test"
+        ]
+    },
+    "bin": [
+        "bin/mysql_persistent.sh"
+    ]
+}
