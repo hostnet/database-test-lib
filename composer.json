@@ -1,5 +1,5 @@
 {
-    "name":        "hostnet/database-test.lib",
+    "name":        "hostnet/database-test-lib",
     "description": "Provide a real database, safe for testing purposes",
     "type":        "lib",
     "license":     "proprietary",
