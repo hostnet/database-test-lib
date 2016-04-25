@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "doctrine/orm":                          "^2.5.4"
+        "doctrine/orm": "^2.5.4"
     },
     "require-dev": {
         "hostnet/phpcs-tool": "^4.0.6",
@@ -26,12 +26,6 @@
             "Hostnet\\Component\\DatabaseTest\\": "test/"
         }
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url":  "https://packagist.hostnetbv.nl"
-        }
-    ],
     "archive": {
         "exclude": [
             "/test"
