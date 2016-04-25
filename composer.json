@@ -2,7 +2,7 @@
     "name":        "hostnet/database-test-lib",
     "description": "Provide a real database, safe for testing purposes",
     "type":        "lib",
-    "license":     "proprietary",
+    "license":     "MIT",
     "authors": [
         {
             "name":  "Hidde Boomsma",
@@ -10,8 +10,7 @@
         }
     ],
     "require": {
-        "doctrine/orm":                          "^2.5.4",
-        "hostnet/entity-information-plugin-lib": "^3.1.1"
+        "doctrine/orm":                          "^2.5.4"
     },
     "require-dev": {
         "hostnet/phpcs-tool": "^4.0.6",
