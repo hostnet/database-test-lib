@@ -43,7 +43,12 @@ if [ ! -S "$SOCKET" ]; then
 fi
 
 # Create the database
-DBNAME="$(uuidgen)"
+if [ -x uuidgen ]; then
+    DBNAME="$(uuidgen)"
+else
+    # An UUID is obviously better, but the tool might not be available.
+    DBNAME="$(date +%s%N)"
+fi
 echo "CREATE DATABASE \`$DBNAME\`;" | mysql --socket="$SOCKET" -u root --password= >&3
 
 echo "### Trap Set" >&3
