@@ -27,7 +27,7 @@ if [ ! -S "$SOCKET" ]; then
     fi
     mkdir -p "$DATA_DIR"
     mysql_install_db  --no-defaults --datadir="$DATA_DIR" &>> "$LOG"
-    ${MYSQLD} --no-defaults --log="$LOG" --datadir="$DATA_DIR" --skip-networking --socket="$SOCKET" >&3 2>&3 &
+    ${MYSQLD} --no-defaults --skip-log-bin --general-log=true --general-log-file="$LOG" --datadir="$DATA_DIR" --skip-networking --socket="$SOCKET" >&3 2>&3 &
     N=0
     while [ ! -S "$SOCKET" ]; do
         echo -n '.' >&3
