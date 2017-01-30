@@ -1,4 +1,7 @@
 <?php
+/**
+ * @copyright 2016-2017 Hostnet B.V.
+ */
 namespace Hostnet\Component\DatabaseTest;
 
 use Doctrine\DBAL\DriverManager;
