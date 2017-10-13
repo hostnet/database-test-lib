@@ -31,7 +31,7 @@ if [ ! -S "$SOCKET" ]; then
     N=0
     while [ ! -S "$SOCKET" ]; do
         echo -n '.' >&3
-        if [ $((N+=1)) -gt 50 ]; then
+        if [ $((N+=1)) -gt 100 ]; then
             echo >&3
             echo '### Could not start mysqld, timeout reached' >&3
             exit 1
