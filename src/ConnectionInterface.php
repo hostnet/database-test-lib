@@ -2,7 +2,6 @@
 /**
  * @copyright 2016-2017 Hostnet B.V.
  */
-declare(strict_types = 1);
 namespace Hostnet\Component\DatabaseTest;
 
 /**
@@ -22,5 +21,5 @@ interface ConnectionInterface
      *
      * @return array
      */
-    public function getConnectionParams(): array;
+    public function getConnectionParams();
 }

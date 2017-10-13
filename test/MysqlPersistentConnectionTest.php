@@ -2,8 +2,6 @@
 /**
  * @copyright 2016-2017 Hostnet B.V.
  */
-declare(strict_types=1);
-
 namespace Hostnet\Component\DatabaseTest;
 
 use Doctrine\DBAL\DriverManager;
@@ -53,7 +51,7 @@ class MysqlPersistentConnectionTest extends TestCase
      * @return string[]
      * @throws \Doctrine\DBAL\DBALException
      */
-    private function listDatabases(array $params): array
+    private function listDatabases(array $params)
     {
         $doctrine  = DriverManager::getConnection($params);
         $statement = $doctrine->executeQuery('SHOW DATABASES');
