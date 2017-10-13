@@ -2,20 +2,23 @@
 /**
  * @copyright 2016-2017 Hostnet B.V.
  */
+declare(strict_types=1);
+
 namespace Hostnet\Component\DatabaseTest;
 
 use Doctrine\DBAL\DriverManager;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Hostnet\Component\DatabaseTest\MysqlPersistentConnection
+ * @covers \Hostnet\Component\DatabaseTest\MysqlPersistentConnection
  */
-class MysqlPersistentConnectionTest extends \PHPUnit_Framework_TestCase
+class MysqlPersistentConnectionTest extends TestCase
 {
     public function testConstruction()
     {
         $connection = new MysqlPersistentConnection();
         $params     = $connection->getConnectionParams();
-        $this->assertEquals(1, count($this->listDatabases($params)));
+        $this->assertCount(1, $this->listDatabases($params));
     }
 
     /**
@@ -34,11 +37,11 @@ class MysqlPersistentConnectionTest extends \PHPUnit_Framework_TestCase
         //
         // Having two databases now ensures that multiple databases with
         // unique names are created by the connection class.
-        $this->assertEquals(2, count($this->listDatabases($params)));
+        $this->assertCount(2, $this->listDatabases($params));
 
         // If a connection disappears, it should clean up it's databases.
         unset($tmp);
-        $this->assertEquals(1, count($this->listDatabases($params)));
+        $this->assertCount(1, $this->listDatabases($params));
     }
 
     /**
@@ -50,7 +53,7 @@ class MysqlPersistentConnectionTest extends \PHPUnit_Framework_TestCase
      * @return string[]
      * @throws \Doctrine\DBAL\DBALException
      */
-    private function listDatabases(array $params)
+    private function listDatabases(array $params): array
     {
         $doctrine  = DriverManager::getConnection($params);
         $statement = $doctrine->executeQuery('SHOW DATABASES');
@@ -63,6 +66,7 @@ class MysqlPersistentConnectionTest extends \PHPUnit_Framework_TestCase
                     case 'mysql':
                     case 'information_schema':
                     case 'performance_schema':
+                    case 'travis':
                         return false;
                     default:
                         return true;
