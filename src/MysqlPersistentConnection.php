@@ -2,7 +2,6 @@
 /**
  * @copyright 2016-2017 Hostnet B.V.
  */
-declare(strict_types = 1);
 namespace Hostnet\Component\DatabaseTest;
 
 /**
@@ -82,7 +81,7 @@ class MysqlPersistentConnection implements ConnectionInterface
      * {@inheritdoc}
      * @return array
      */
-    public function getConnectionParams(): array
+    public function getConnectionParams()
     {
         return $this->connection_params;
     }
