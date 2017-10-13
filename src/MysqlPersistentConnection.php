@@ -2,6 +2,7 @@
 /**
  * @copyright 2016-2017 Hostnet B.V.
  */
+declare(strict_types = 1);
 namespace Hostnet\Component\DatabaseTest;
 
 /**
@@ -26,6 +27,8 @@ class MysqlPersistentConnection implements ConnectionInterface
      */
     const CMD_PERSISTENT = __DIR__ . '/../bin/mysql_persistent.sh';
 
+    const CMD_TRAVIS = __DIR__ . '/../bin/mysql_travis.sh';
+
     /**
      * @var array
      */
@@ -34,12 +37,12 @@ class MysqlPersistentConnection implements ConnectionInterface
     /**
      * @var resource
      */
-    private $pipe = null;
+    private $pipe;
 
     /**
      * @var resource
      */
-    private $process = null;
+    private $process;
 
     /**
      * Start the daemon if needed and create a database.
@@ -47,17 +50,18 @@ class MysqlPersistentConnection implements ConnectionInterface
     public function __construct()
     {
         $descriptor_spec = [
-            0 => ["pipe", "r"],  // stdin is a pipe that the child will read from
-            1 => ["pipe", "w"],  // stdout is a pipe that the child will write to
+            0 => ['pipe', 'r'],  // stdin is a pipe that the child will read from
+            1 => ['pipe', 'w'],  // stdout is a pipe that the child will write to
         ];
 
-        $this->process = proc_open(self::CMD_PERSISTENT, $descriptor_spec, $pipes);
+        $cmd           = getenv('TRAVIS') ? self::CMD_TRAVIS : self::CMD_PERSISTENT;
+        $this->process = proc_open($cmd, $descriptor_spec, $pipes);
         $data          = fread($pipes[1], 1024);
 
         fclose($pipes[1]);
         $this->pipe = $pipes[0];
 
-        foreach (explode(",", $data) as $param) {
+        foreach (explode(',', $data) as $param) {
             if (strpos($param, ':') !== false) {
                 list($key, $value)                   = explode(':', $param);
                 $this->connection_params[trim($key)] = trim($value);
@@ -78,7 +82,7 @@ class MysqlPersistentConnection implements ConnectionInterface
      * {@inheritdoc}
      * @return array
      */
-    public function getConnectionParams()
+    public function getConnectionParams(): array
     {
         return $this->connection_params;
     }
