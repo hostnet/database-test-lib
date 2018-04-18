@@ -23,7 +23,8 @@
     },
     "bin": [
         "bin/mysql_persistent.sh",
-        "bin/mysql_travis.sh"
+        "bin/mysql_travis.sh",
+        "bin/mysql_gitlab.sh"
     ],
     "archive": {
         "exclude": [
