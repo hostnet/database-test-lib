@@ -2,6 +2,8 @@
 /**
  * @copyright 2016-2017 Hostnet B.V.
  */
+declare(strict_types=1);
+
 namespace Hostnet\Component\DatabaseTest;
 
 /**
@@ -69,10 +71,12 @@ class MysqlPersistentConnection implements ConnectionInterface
         $this->pipe = $pipes[0];
 
         foreach (explode(',', $data) as $param) {
-            if (strpos($param, ':') !== false) {
-                list($key, $value)                   = explode(':', $param);
-                $this->connection_params[trim($key)] = trim($value);
+            if (strpos($param, ':') === false) {
+                continue;
             }
+
+            list($key, $value)                   = explode(':', $param);
+            $this->connection_params[trim($key)] = trim($value);
         }
     }
 
