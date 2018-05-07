@@ -16,7 +16,7 @@ namespace Hostnet\Component\DatabaseTest;
  * When PHP exists or crashes, the bash script will notice and
  * remove the database(s).
  */
-class MysqlPersistentConnection implements ConnectionInterface
+class MysqlPersistentConnection implements ConnectionInterface, UrlConnectionInterface
 {
     /**
      * Bash script taking care of daemon start,
@@ -96,5 +96,31 @@ class MysqlPersistentConnection implements ConnectionInterface
     public function getConnectionParams()
     {
         return $this->connection_params;
+    }
+
+    /**
+     * {@inheritdoc}
+     * @return string
+     */
+    public function getConnectionUrl(): string
+    {
+        if (array_key_exists('unix_socket', $this->connection_params)) {
+            return sprintf(
+                'mysql://%s@localhost/%s?unix_socket=%s&server_version=%s',
+                $this->connection_params['user'] ?? get_current_user(),
+                $this->connection_params['dbname'] ?? 'test',
+                $this->connection_params['unix_socket'],
+                $this->connection_params['server_version'] ?? '5.6'
+            );
+        }
+
+        return sprintf(
+            'mysql://%s@%s:%s/%s?server_version=%s',
+            $this->connection_params['user'] ?? get_current_user(),
+            $this->connection_params['hostname'] ?? 'localhost',
+            $this->connection_params['port'] ?? 3306,
+            $this->connection_params['dbname'] ?? 'test',
+            $this->connection_params['server_version'] ?? '5.6'
+        );
     }
 }

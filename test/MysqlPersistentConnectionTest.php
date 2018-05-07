@@ -19,6 +19,10 @@ class MysqlPersistentConnectionTest extends TestCase
         $connection = new MysqlPersistentConnection();
         $params     = $connection->getConnectionParams();
         $this->assertCount(1, $this->listDatabases($params));
+
+        $connection = new MysqlPersistentConnection();
+        $url        = $connection->getConnectionUrl();
+        $this->assertCount(1, $this->listDatabases(['url' => $url]));
     }
 
     /**
