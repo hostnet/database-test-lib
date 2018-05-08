@@ -115,9 +115,10 @@ class MysqlPersistentConnection implements ConnectionInterface, UrlConnectionInt
         }
 
         return sprintf(
-            'mysql://%s@%s:%s/%s?server_version=%s',
+            'mysql://%s:%s@%s:%s/%s?server_version=%s',
             $this->connection_params['user'] ?? get_current_user(),
-            $this->connection_params['hostname'] ?? 'localhost',
+            $this->connection_params['password'] ?? '',
+            $this->connection_params['host'] ?? 'localhost',
             $this->connection_params['port'] ?? 3306,
             $this->connection_params['dbname'] ?? 'test',
             $this->connection_params['server_version'] ?? '5.6'
