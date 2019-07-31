@@ -71,6 +71,7 @@ class MysqlPersistentConnectionTest extends TestCase
                     case 'information_schema':
                     case 'performance_schema':
                     case 'travis':
+                    case 'sys':
                         return false;
                     default:
                         return true;
