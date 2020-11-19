@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 class MysqlPersistentConnectionTest extends TestCase
 {
-    public function testConstruction()
+    public function testConstruction(): void
     {
         $connection = new MysqlPersistentConnection();
         $params     = $connection->getConnectionParams();
@@ -28,7 +28,7 @@ class MysqlPersistentConnectionTest extends TestCase
     /**
      * @depends testConstruction
      */
-    public function testDestruction()
+    public function testDestruction(): void
     {
         $connection = new MysqlPersistentConnection();
         $params     = $connection->getConnectionParams();
@@ -57,7 +57,7 @@ class MysqlPersistentConnectionTest extends TestCase
      * @return string[]
      * @throws \Doctrine\DBAL\DBALException
      */
-    private function listDatabases(array $params)
+    private function listDatabases(array $params): array
     {
         $doctrine  = DriverManager::getConnection($params);
         $statement = $doctrine->executeQuery('SHOW DATABASES');
