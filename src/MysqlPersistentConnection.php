@@ -28,9 +28,9 @@ class MysqlPersistentConnection implements ConnectionInterface, UrlConnectionInt
      */
     const CMD_PERSISTENT = __DIR__ . '/../bin/mysql_persistent.sh';
 
-    const CMD_TRAVIS = __DIR__ . '/../bin/mysql_travis.sh';
-
     const CMD_GITLAB = __DIR__ . '/../bin/mysql_gitlab.sh';
+
+    const CMD_GITHUB = __DIR__ . '/../bin/mysql_github.sh';
 
     /**
      * @var array
@@ -58,8 +58,8 @@ class MysqlPersistentConnection implements ConnectionInterface, UrlConnectionInt
         ];
 
         $cmd = self::CMD_PERSISTENT;
-        if (getenv('TRAVIS')) {
-            $cmd = self::CMD_TRAVIS;
+        if (getenv('GITHUB_ACTION')) {
+            $cmd = self::CMD_GITHUB;
         } elseif (getenv('GITLAB_CI')) {
             $cmd = self::CMD_GITLAB;
         }
