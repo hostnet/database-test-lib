@@ -4,7 +4,7 @@
     "description": "Provide a real database, safe for testing purposes",
     "license":     "MIT",
     "require": {
-        "php":          "^7.3",
+        "php":          "^7.3|^8.0",
         "doctrine/orm": "^2.5.4"
     },
     "require-dev": {
