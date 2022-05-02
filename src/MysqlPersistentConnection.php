@@ -26,11 +26,11 @@ class MysqlPersistentConnection implements ConnectionInterface, UrlConnectionInt
      * If you close stdin of the process, the script
      * will assume you are done and remove your database.
      */
-    const CMD_PERSISTENT = __DIR__ . '/../bin/mysql_persistent.sh';
+    private const CMD_PERSISTENT = __DIR__ . '/../bin/mysql_persistent.sh';
 
-    const CMD_GITLAB = __DIR__ . '/../bin/mysql_gitlab.sh';
+    private const CMD_GITLAB = __DIR__ . '/../bin/mysql_gitlab.sh';
 
-    const CMD_GITHUB = __DIR__ . '/../bin/mysql_github.sh';
+    private const CMD_GITHUB = __DIR__ . '/../bin/mysql_github.sh';
 
     /**
      * @var array

@@ -8,7 +8,7 @@
         "doctrine/orm": "^2.5.4"
     },
     "require-dev": {
-        "hostnet/phpcs-tool": "^8.3",
+        "hostnet/phpcs-tool": "^9.1.0",
         "phpunit/phpunit":    "^9.4"
     },
     "autoload": {
@@ -30,5 +30,11 @@
         "exclude": [
             "/test"
         ]
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": false,
+            "hostnet/*": true
+        }
     }
 }
