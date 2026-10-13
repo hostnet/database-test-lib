@@ -12,10 +12,11 @@ jobs:
 
     strategy:
       matrix:
-        php-versions: ['7.3', '7.4', '8.0']
-    name: PHP ${{ matrix.php-versions }}
+        php-versions: ['8.3', '8.4']
+        dbal: ['3.*', '4.*']
+    name: PHP ${{ matrix.php-versions }}, DBAL ${{ matrix.dbal }}
     steps:
-      -   uses: actions/checkout@v2
+      -   uses: actions/checkout@v4
       -   uses: shivammathur/setup-php@v2
           with:
             php-version: ${{ matrix.php-versions }}
@@ -29,7 +30,9 @@ jobs:
             key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
             restore-keys: ${{ runner.os }}-composer-
       -   name: composer install
-          run: composer install --no-progress --prefer-dist --optimize-autoloader
+          run: |
+              composer require --dev --no-update doctrine/dbal:"${{ matrix.dbal }}"
+              composer update doctrine/dbal --no-progress --prefer-dist --optimize-autoloader
       -   run: sudo /etc/init.d/mysql start
       -   name: phpunit
           run: php vendor/bin/phpunit

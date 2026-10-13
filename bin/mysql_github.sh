@@ -15,7 +15,7 @@ finish() {
 DBNAME="$(date +%s%N)"
 echo "CREATE DATABASE \`$DBNAME\`;" | $MYSQL >&3
 
-# PHP 7.3 compatibility, does not support caching_sha2_password, use mysql_native_password on a new user instead.
+# Older PHP/mysql clients do not support caching_sha2_password, use mysql_native_password on a new user instead.
 echo "CREATE USER  IF NOT EXISTS 'test'@'localhost' IDENTIFIED WITH mysql_native_password BY 'test';"  | $MYSQL >&3
 echo "GRANT ALL PRIVILEGES ON *.* TO 'test'@'localhost';" | $MYSQL >&3
 echo "FLUSH PRIVILEGES;" | $MYSQL >&3

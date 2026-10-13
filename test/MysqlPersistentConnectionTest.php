@@ -7,6 +7,7 @@ declare(strict_types=1);
 namespace Hostnet\Component\DatabaseTest;
 
 use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Tools\DsnParser;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -22,7 +23,7 @@ class MysqlPersistentConnectionTest extends TestCase
 
         $connection = new MysqlPersistentConnection();
         $url        = $connection->getConnectionUrl();
-        $this->assertCount(1, $this->listDatabases(['url' => $url]));
+        $this->assertCount(1, $this->listDatabases((new DsnParser(['mysql' => 'pdo_mysql']))->parse($url)));
     }
 
     /**
@@ -55,13 +56,12 @@ class MysqlPersistentConnectionTest extends TestCase
      *
      * @param string[] $params Doctrine connection parameters
      * @return string[]
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws \Doctrine\DBAL\Exception
      */
     private function listDatabases(array $params): array
     {
-        $doctrine  = DriverManager::getConnection($params);
-        $statement = $doctrine->executeQuery('SHOW DATABASES');
-        $data      = $statement->fetchAll(\PDO::FETCH_COLUMN);
+        $doctrine = DriverManager::getConnection($params);
+        $data     = $doctrine->executeQuery('SHOW DATABASES')->fetchFirstColumn();
 
         return array_filter(
             $data,
