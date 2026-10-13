@@ -27,12 +27,10 @@ jobs:
       -   uses: actions/cache@v4
           with:
             path: ${{ steps.composer-cache.outputs.dir }}
-            key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-            restore-keys: ${{ runner.os }}-composer-
+            key: ${{ runner.os }}-composer-${{ matrix.dbal }}-${{ hashFiles('**/composer.json') }}
+            restore-keys: ${{ runner.os }}-composer-${{ matrix.dbal }}-
       -   name: composer install
-          run: |
-              composer require --dev --no-update doctrine/dbal:"${{ matrix.dbal }}"
-              composer update doctrine/dbal --no-progress --prefer-dist --optimize-autoloader
+          run: composer require --dev doctrine/dbal:"${{ matrix.dbal }}" --no-progress --prefer-dist --optimize-autoloader
       -   run: sudo /etc/init.d/mysql start
       -   name: phpunit
           run: php vendor/bin/phpunit
